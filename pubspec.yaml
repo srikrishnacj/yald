@@ -1,6 +1,6 @@
 name: yald
+version: 0.0.2
 description: Yet Another Logger for Dart
-version: 0.0.001
 homepage: https://github.com/srikrishnacj/yald
 repository: https://github.com/srikrishnacj/yald
 
