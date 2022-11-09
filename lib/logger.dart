@@ -65,7 +65,7 @@ class Logger {
 
   void _log(String message, LogLevel level) {
     if (config[level] == true) {
-      print("[$appName] ${loggerName.padLeft(20)}\t\t$message");
+      print("[$appName] [${level.name.padLeft(5)}] ${loggerName.padLeft(20)} $message");
     }
   }
 }

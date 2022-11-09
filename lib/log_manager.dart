@@ -2,19 +2,39 @@ import 'package:yald/logger.dart';
 
 import 'log_levels.dart';
 
-class LogManagerInstance {
-  late String appName;
-  late Map<String, LogLevel> configuration;
+class LogManager {
+  static final _LogManagerInstance _instance = _LogManagerInstance();
 
-  void config(Map<String, LogLevel> config, {appName="APP"}) {
+  static void config(Map<String, LogLevel> config, {appName = "APP"}) {
+    _instance.config(config, appName: appName);
+  }
+
+  static Logger loggerFor(String name) {
+    return _instance.loggerFor(name);
+  }
+}
+
+class _LogManagerInstance {
+  late String appName;
+  late Map<String, LogLevel> configuration = {};
+
+  void config(Map<String, LogLevel> config, {appName = "APP"}) {
     this.appName = appName;
     configuration = config;
     if (configuration["root"] == null) {
-      configuration['root'] = LogLevel.WARN;
+      configuration['root'] = LogLevel.ALL;
+    }
+  }
+
+  void _configure(){
+    if(configuration.keys.isEmpty) {
+      configuration['root'] = LogLevel.ALL;
     }
   }
 
   Logger loggerFor(String name) {
+    _configure();
+
     LogLevel? level;
     configuration.forEach((key, value) {
       if (key == name) {
@@ -37,6 +57,6 @@ class LogManagerInstance {
       }
     }
 
-    return Logger(appName:appName, loggerName: name, config: config);
+    return Logger(appName: appName, loggerName: name, config: config);
   }
 }

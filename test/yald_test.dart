@@ -1,15 +1,8 @@
 import 'package:yald/log_levels.dart';
+import 'package:yald/log_manager.dart';
 import 'package:yald/logger.dart';
-import 'package:yald/yald.dart';
-import 'package:test/test.dart';
 
 import '../bin/yald.dart';
-
-// void main() {
-//   test('calculate', () {
-//     expect(calculate(), 42);
-//   });
-// }
 
 
 void main(){
@@ -18,10 +11,11 @@ void main(){
   config["TEST1"] = LogLevel.OFF;
   config["TEST2"] = LogLevel.INFO;
   config["TEST3"] = LogLevel.ALL;
+  config["root"] = LogLevel.ALL;
 
   LogManager.config(config);
 
-  Logger log1 = LogManager.loggerFor("TEST1-TEST1");
+  Logger log1 = LogManager.loggerFor("TEST1");
   Logger log2 = LogManager.loggerFor("TEST2");
   Logger log3 = LogManager.loggerFor("TEST3");
 
@@ -50,12 +44,17 @@ void main(){
   print("");
   print("");
 
-  log3.all("This is all msg");
-  log3.trace("This is trace msg");
-  log3.debug("This is debug msg");
-  log3.info("This is info msg");
-  log3.warn("This is warn msg");
-  log3.error("This is error msg");
-  log3.fatal("This is fatal msg");
+  log3.all("╔This is all msg");
+  log3.trace("║This is trace msg");
+  log3.debug("║This is debug msg");
+  log3.info("║This is info msg");
+  log3.warn("║This is warn msg");
+  log3.error("║This is error msg");
+  log3.fatal("╚This is fatal msg");
+
+
+  print("╔test");
+  print("║test");
+  print("╚test");
 
 }
